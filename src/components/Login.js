@@ -2,15 +2,18 @@ import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { checkValidateData } from '../utils/validate'; 
 import { LOGIN_URL } from '../utils/constants';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { addUser } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';  
+import useRedirectIfLoggedIn from "../utils/useRedirectIfLoggedIn";
 
 
 const Login = () => {
-  const dispatch = useDispatch(); 
-  const [isInSingFrom, setisInSingFrom] = useState(true);
-  const Navigate = useNavigate();
+  useRedirectIfLoggedIn();
+
+    const dispatch = useDispatch(); 
+    const [isInSingFrom, setisInSingFrom] = useState(true);
+    const Navigate = useNavigate();
 
     
     const email = useRef(null);
@@ -41,11 +44,7 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
       });
-      const data = await response.json();
-
-      // const { uid, name, email } = data?.data;
-     // console.log(name); // handle the response data accordingly
-      // dispatch(addUser({ uid:uid, name:name, email:email }));
+      const data = await response.json(); 
       
       dispatch(addUser(data?.data));
       Navigate("/browse");
