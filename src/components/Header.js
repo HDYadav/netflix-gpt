@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LOGOUT_URL } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -28,15 +28,16 @@ const Header = () => {
     if (!response.ok) {
       throw new Error("Logout failed");
     }
-     dispatch(removeUser(null));  // remove the user data from redux store
+     dispatch(removeUser(null));  
      
     Navigate("/");
   } catch (error) {
     console.error("Logout failed:", error.message);
-    // Handle the error here, such as displaying an error message to the user
+ 
   }
 };
 
+ 
 
   return (
     <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">

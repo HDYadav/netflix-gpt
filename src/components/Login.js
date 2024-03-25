@@ -20,7 +20,8 @@ const Login = () => {
     const password = useRef(null);
 
     const [errorMessage, setErrorMessage] = useState(null);
-
+ 
+ 
 
   const handleButtomClick = async () => {
     const message = checkValidateData(
@@ -44,11 +45,11 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
       });
-      const data = await response.json(); 
-      
+      const data = await response.json();
+
       dispatch(addUser(data?.data));
+    //  localStorage.setItem("accessToken", data?.data.token);
       Navigate("/browse");
-      
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage('An error occurred. Please try again.');

@@ -13,11 +13,12 @@ const Browser = () => {
 
     const json = await data.json();
 
-    console.log(json);
+    //console.log(json);
   }
 
   useEffect(() => {
     getNowPlayingMovies();
+    
   },[])
 
   return (
