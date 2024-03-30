@@ -10,4 +10,16 @@ export const API_OPTION = {
   },
 };
 
+
+export const BG_IMG =
+  "https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e0-ecd7979cc88b/a3873901-5b7c-46eb-b9fa-12fea5197bd3/IN-en-20240311-popsignuptwoweeks-perspective_alpha_website_large.jpg";
+
+
+
 export const IMG_CDN = "https://image.tmdb.org/t/p/w780";
+
+export const SUPPORTED_LANGUAGE = [
+  { identifier: "en", name: "English" },
+  { identifier: "hn", name: "Hindi" },
+  { identifier: "spanich", name: "Spanich" },
+];

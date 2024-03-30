@@ -7,11 +7,12 @@ function VideoBackground({ movieID }) {
   const trailerVideo = useSelector((state) => state.movies?.trailerVideo);
   useMoviesTrailer(movieID);
   
-   useMoviesTrailer(movieID);
+   //useMoviesTrailer(movieID);
     
 
   return (
-    <div className="w-screen">
+    <div className="w-screen h-screen flex justify-center items-center">
+ 
       <iframe
         className="w-screen aspect-video"
         src={

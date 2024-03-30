@@ -1,20 +1,20 @@
 import React from 'react';
 import { LOGOUT_URL } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../utils/userSlice';
 import useRequireAuth from "../utils/useRequireAuth";
 import { toggelSerarchViews } from '../utils/gptSlice';
- 
+import { SUPPORTED_LANGUAGE } from "../utils/constants"; 
+import { changeLanguage } from '../utils/configSlice';
 
 const Header = () => {
 
   const Navigate = useNavigate();
-  const user = useRequireAuth();
- //  const user = useSelector((state) => state.user);
-   //console.log(user);
-
+  const user = useRequireAuth(); 
   const dispatch = useDispatch(); 
+
+  const showGptSerach = useSelector((store) => store.gpt.showGptSearch);
   
   const handleSignOut = async () => {
    const Authtoken = user.token;
@@ -36,14 +36,18 @@ const Header = () => {
     console.error("Logout failed:", error.message);
  
   }
-};
+  };
 
-  const handleGptSearch = () => {
-    console.log("test");
-
-    dispatch(toggelSerarchViews());
+  const handleGptSearch = () => {  
+    dispatch(toggelSerarchViews());  
     
  }
+ 
+  const handleChangeLan = (e) => {
+  //  console.log(e.target.value);
+    dispatch(changeLanguage(e.target.value));
+  }
+
 
   return (
     <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
@@ -57,14 +61,29 @@ const Header = () => {
 
       {user && (
         <div className="flex p-2">
-          <button className="py-2 px-4 m-2 bg-purple-800 text-white rounded-lg" onClick={handleGptSearch}>
-            GPT Search
+          {showGptSerach && (
+            <select
+              className="p-2 m-2 bg-gray-900 text-white"
+              onChange={handleChangeLan}
+            >
+              {SUPPORTED_LANGUAGE.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            className="py-2 px-4 m-2 bg-purple-800 text-white rounded-lg"
+            onClick={handleGptSearch}
+          >
+            {showGptSerach ? "Home" : " GPT Search"}
           </button>
           <button
             onClick={handleSignOut}
             className="py-2 px-4 m-2 bg-gray-800 text-white rounded-lg"
           >
-            Sign out
+            {showGptSerach} Sign out
           </button>
         </div>
       )}
